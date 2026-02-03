@@ -1,6 +1,8 @@
+import React from "react";
 import { cn } from "./utils";
 
-function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
+// Skeleton placeholder component
+function Skeleton({ className, ...props }) {
   return (
     <div
       data-slot="skeleton"
