@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Button } from "@/app/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs";
-import { Badge } from "@/app/components/ui/badge";
-import { Input } from "@/app/components/ui/input";
-import { Apple, Leaf, DollarSign, Heart, Search, Star } from "lucide-react";
+import React, { useState } from "react";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import Badge from "./ui/Badge"; 
+import { Input } from "./ui/input";
+import { Apple, Heart, Search } from "lucide-react";
 
-export function FoodRecommendations() {
+export default function FoodRecommendations() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -123,53 +123,50 @@ export function FoodRecommendations() {
   const filteredFoods = foodRecommendations.filter(food => {
     const matchesCategory = selectedCategory === 'all' || food.category === selectedCategory;
     const matchesSearch = food.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         food.description.toLowerCase().includes(searchQuery.toLowerCase());
+                          food.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
   const getCostBadge = (cost) => {
     const colors = {
-      'very-low': 'bg-green-100 text-green-800',
-      'low': 'bg-blue-100 text-blue-800',
-      'medium': 'bg-orange-100 text-orange-800',
-      'high': 'bg-red-100 text-red-800'
+      'very-low': 'green',
+      'low': 'blue',
+      'medium': 'orange',
+      'high': 'red'
     };
-    return colors[cost] || colors['medium'];
+    return colors[cost] || 'gray';
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Food & Nutrition Guide</h2>
-        <p className="text-gray-600">Recommended foods based on nutritional needs and local availability</p>
-      </div>
+    <div className="container">
+      <h2>Food & Nutrition Guide</h2>
+      <p>Recommended foods based on nutritional needs and local availability</p>
 
-      <Tabs defaultValue="recommended" className="space-y-6">
+      <Tabs defaultValue="recommended">
         <TabsList>
           <TabsTrigger value="recommended">Recommended Foods</TabsTrigger>
           <TabsTrigger value="therapeutic">Therapeutic Foods</TabsTrigger>
           <TabsTrigger value="substitutions">Substitution Guide</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="recommended" className="space-y-4">
-          {/* Search and Filter */}
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-              <Input
-                placeholder="Search foods..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+        {/* Recommended Foods */}
+        <TabsContent value="recommended">
+          <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+            <div style={{ flex: 1, position: 'relative' }}>
+              <Search style={{ position: 'absolute', left: '8px', top: '8px', color: '#888' }} />
+              <Input 
+                placeholder="Search foods..." 
+                value={searchQuery} 
+                onChange={(e) => setSearchQuery(e.target.value)} 
+                style={{ paddingLeft: '24px' }}
               />
             </div>
-            <div className="flex gap-2 overflow-x-auto">
+            <div style={{ display: 'flex', gap: '5px' }}>
               {categories.map(cat => (
-                <Button
-                  key={cat.id}
-                  variant={selectedCategory === cat.id ? "default" : "outline"}
-                  size="sm"
+                <Button 
+                  key={cat.id} 
                   onClick={() => setSelectedCategory(cat.id)}
+                  style={{ backgroundColor: selectedCategory === cat.id ? '#ccc' : '#fff' }}
                 >
                   {cat.name}
                 </Button>
@@ -177,136 +174,86 @@ export function FoodRecommendations() {
             </div>
           </div>
 
-          {/* Food Cards */}
-          <div className="grid md:grid-cols-2 gap-4">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
             {filteredFoods.map(food => (
               <Card key={food.id}>
                 <CardHeader>
-                  <div className="flex items-start justify-between">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <CardTitle>{food.name}</CardTitle>
                       <CardDescription>{food.description}</CardDescription>
                     </div>
-                    <Apple className="w-6 h-6 text-green-600" />
+                    <Apple />
                   </div>
-                  <div className="flex gap-2 mt-2">
-                    <Badge className={getCostBadge(food.cost)}>
-                      {food.cost.replace('-', ' ')} cost
-                    </Badge>
-                    <Badge variant="outline">{food.ageGroup}</Badge>
+                  <div style={{ display: 'flex', gap: '5px', marginTop: '5px' }}>
+                    <Badge style={{ backgroundColor: getCostBadge(food.cost) }}>{food.cost} cost</Badge>
+                    <Badge>{food.ageGroup}</Badge>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent>
                   <div>
-                    <p className="text-sm font-medium mb-1">Benefits:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {food.benefits.map((benefit, idx) => (
-                        <span key={idx} className="text-xs bg-green-50 text-green-700 px-2 py-1 rounded">
-                          {benefit}
-                        </span>
-                      ))}
+                    <p>Benefits:</p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                      {food.benefits.map((b, i) => <span key={i}>{b}</span>)}
                     </div>
                   </div>
-
                   <div>
-                    <p className="text-sm font-medium mb-1">Local Alternatives:</p>
-                    <p className="text-sm text-gray-600">{food.localAlternatives.join(', ')}</p>
+                    <p>Local Alternatives: {food.localAlternatives.join(', ')}</p>
                   </div>
-
-                  <div className="grid grid-cols-3 gap-2 pt-2 border-t">
-                    <div>
-                      <p className="text-xs text-gray-500">Calories</p>
-                      <p className="font-semibold">{food.nutrients.calories}</p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-500">Protein</p>
-                      <p className="font-semibold">{food.nutrients.protein}g</p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-500">Iron</p>
-                      <p className="font-semibold">{food.nutrients.iron}mg</p>
-                    </div>
+                  <div style={{ display: 'flex', gap: '10px', marginTop: '5px' }}>
+                    <div>Calories: {food.nutrients.calories}</div>
+                    <div>Protein: {food.nutrients.protein}g</div>
+                    <div>Iron: {food.nutrients.iron}mg</div>
                   </div>
-
-                  <Button variant="outline" className="w-full" size="sm">
-                    View Recipe
-                  </Button>
+                  <Button>View Recipe</Button>
                 </CardContent>
               </Card>
             ))}
           </div>
         </TabsContent>
 
-        <TabsContent value="therapeutic" className="space-y-4">
-          <div className="grid md:grid-cols-2 gap-4">
-            {therapeuticFoods.map((food, index) => (
-              <Card key={index}>
+        {/* Therapeutic Foods */}
+        <TabsContent value="therapeutic">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            {therapeuticFoods.map((food, i) => (
+              <Card key={i}>
                 <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <CardTitle className="text-lg">{food.name}</CardTitle>
-                    <Heart className="w-5 h-5 text-red-500" />
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <CardTitle>{food.name}</CardTitle>
+                    <Heart />
                   </div>
-                  <Badge variant="outline">{food.use}</Badge>
+                  <Badge>{food.use}</Badge>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                  <p className="text-sm text-gray-700">{food.description}</p>
-                  <div className="pt-2 border-t">
-                    <p className="text-sm font-medium text-gray-900">Availability:</p>
-                    <p className="text-sm text-gray-600">{food.availability}</p>
-                  </div>
-                  <Button variant="outline" className="w-full" size="sm">
-                    Request Supply
-                  </Button>
+                <CardContent>
+                  <p>{food.description}</p>
+                  <p>Availability: {food.availability}</p>
+                  <Button>Request Supply</Button>
                 </CardContent>
               </Card>
             ))}
           </div>
         </TabsContent>
 
-        <TabsContent value="substitutions" className="space-y-4">
+        {/* Substitutions */}
+        <TabsContent value="substitutions">
           <Card>
             <CardHeader>
               <CardTitle>Food Substitution Engine</CardTitle>
-              <CardDescription>
-                Find alternatives when recommended foods are unavailable
-              </CardDescription>
+              <CardDescription>Find alternatives when recommended foods are unavailable</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-3">
-                  <h4 className="font-semibold">If unavailable:</h4>
-                  <div className="space-y-2">
-                    <div className="p-3 bg-gray-50 rounded-lg">
-                      <p className="font-medium">Eggs</p>
-                      <p className="text-sm text-gray-600">→ Fish, milk, beans, or lentils</p>
-                    </div>
-                    <div className="p-3 bg-gray-50 rounded-lg">
-                      <p className="font-medium">Orange Sweet Potato</p>
-                      <p className="text-sm text-gray-600">→ Carrots, pumpkin, mango, or papaya</p>
-                    </div>
-                    <div className="p-3 bg-gray-50 rounded-lg">
-                      <p className="font-medium">Milk</p>
-                      <p className="text-sm text-gray-600">→ Yogurt, soy milk, or fortified plant milk</p>
-                    </div>
-                  </div>
+            <CardContent>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                <div>
+                  <h4>If unavailable:</h4>
+                  <p>Eggs → Fish, milk, beans, or lentils</p>
+                  <p>Orange Sweet Potato → Carrots, pumpkin, mango, or papaya</p>
+                  <p>Milk → Yogurt, soy milk, or fortified plant milk</p>
                 </div>
-
-                <div className="space-y-3">
-                  <h4 className="font-semibold">Nutrient-based alternatives:</h4>
-                  <div className="space-y-2">
-                    <div className="p-3 bg-green-50 rounded-lg">
-                      <p className="font-medium text-green-900">For Iron:</p>
-                      <p className="text-sm text-green-700">Dark leafy greens, lentils, fortified cereals, liver</p>
-                    </div>
-                    <div className="p-3 bg-orange-50 rounded-lg">
-                      <p className="font-medium text-orange-900">For Vitamin A:</p>
-                      <p className="text-sm text-orange-700">Orange vegetables, dark greens, liver, red palm oil</p>
-                    </div>
-                    <div className="p-3 bg-blue-50 rounded-lg">
-                      <p className="font-medium text-blue-900">For Protein:</p>
-                      <p className="text-sm text-blue-700">Beans, lentils, groundnuts, fish, eggs, meat</p>
-                    </div>
-                  </div>
+                <div>
+                  <h4>Nutrient-based alternatives:</h4>
+                  <p>Iron → Dark leafy greens, lentils, fortified cereals, liver</p>
+                  <p>Vitamin A → Orange vegetables, dark greens, liver, red palm oil</p>
+                  <p>Protein → Beans, lentils, groundnuts, fish, eggs, meat</p>
                 </div>
               </div>
             </CardContent>

@@ -1,25 +1,27 @@
-import { Button } from "@/app/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card";
+import React from "react";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Heart, Users, TrendingUp, Leaf } from "lucide-react";
+import "../../styles/welcome.css"; // plain CSS file
 
-export function WelcomeScreen({ onGetStarted }) {
+export default function WelcomeScreen({ onGetStarted }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4">
-      <div className="max-w-4xl w-full">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-green-600 rounded-full mb-4">
-            <Heart className="w-10 h-10 text-white" />
+    <div className="welcome-container">
+      <div className="welcome-wrapper">
+        <div className="welcome-header">
+          <div className="welcome-logo">
+            <Heart className="welcome-heart-icon" />
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">NutriCare</h1>
-          <p className="text-xl text-gray-600">
+          <h1 className="welcome-title">NutriCare</h1>
+          <p className="welcome-subtitle">
             Preventing, Detecting, and Managing Malnutrition
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4 mb-8">
+        <div className="welcome-cards">
           <Card>
             <CardHeader>
-              <Users className="w-8 h-8 text-green-600 mb-2" />
+              <Users className="card-icon green" />
               <CardTitle>Community Care</CardTitle>
             </CardHeader>
             <CardContent>
@@ -31,7 +33,7 @@ export function WelcomeScreen({ onGetStarted }) {
 
           <Card>
             <CardHeader>
-              <TrendingUp className="w-8 h-8 text-blue-600 mb-2" />
+              <TrendingUp className="card-icon blue" />
               <CardTitle>Track Progress</CardTitle>
             </CardHeader>
             <CardContent>
@@ -43,7 +45,7 @@ export function WelcomeScreen({ onGetStarted }) {
 
           <Card>
             <CardHeader>
-              <Leaf className="w-8 h-8 text-green-600 mb-2" />
+              <Leaf className="card-icon green" />
               <CardTitle>Smart Nutrition</CardTitle>
             </CardHeader>
             <CardContent>
@@ -54,15 +56,11 @@ export function WelcomeScreen({ onGetStarted }) {
           </Card>
         </div>
 
-        <div className="text-center">
-          <Button 
-            onClick={onGetStarted} 
-            size="lg"
-            className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg"
-          >
+        <div className="welcome-action">
+          <Button onClick={onGetStarted} className="start-button">
             Get Started
           </Button>
-          <p className="text-sm text-gray-500 mt-4">
+          <p className="welcome-note">
             For NGOs, Hospitals, Government Programs, and Communities
           </p>
         </div>

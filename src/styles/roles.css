@@ -1,0 +1,97 @@
+/* Container */
+.role-selection-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: linear-gradient(to bottom right, #d1fae5, #dbeafe); /* green-50 to blue-50 */
+}
+
+.role-selection-wrapper {
+  max-width: 1024px;
+  width: 100%;
+}
+
+.role-selection-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.role-selection-header h2 {
+  font-size: 1.875rem; /* 3xl */
+  font-weight: bold;
+  color: #111827; /* gray-900 */
+  margin-bottom: 8px;
+}
+
+.role-selection-header p {
+  color: #4b5563; /* gray-600 */
+}
+
+/* Grid */
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .role-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Role card */
+.role-card {
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.role-card:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon wrapper */
+.role-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 0.5rem;
+  margin-bottom: 12px;
+}
+
+/* Icon colors */
+.role-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Role colors */
+.role-bg-pink { background-color: #fce7f3; }
+.role-bg-blue { background-color: #dbeafe; }
+.role-bg-green { background-color: #d1fae5; }
+.role-bg-purple { background-color: #ede9fe; }
+
+.role-icon-pink { color: #db2777; }
+.role-icon-blue { color: #2563eb; }
+.role-icon-green { color: #059669; }
+.role-icon-purple { color: #7c3aed; }
+
+/* Button */
+.role-button {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 0.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.role-button:hover {
+  background-color: #2563eb;
+}

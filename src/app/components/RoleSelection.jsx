@@ -1,67 +1,69 @@
-import { Button } from "@/app/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card";
+import React from "react";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { UserCircle, Stethoscope, Baby, Settings } from "lucide-react";
+import "../../styles/roles.css"; // import the plain CSS
 
-export function RoleSelection({ onSelectRole }) {
+export default function RoleSelection({ onSelectRole }) {
   const roles = [
     {
-      id: 'caregiver',
-      title: 'Parent/Caregiver',
-      description: 'Manage nutrition for your child or family member',
+      id: "caregiver",
+      title: "Parent/Caregiver",
+      description: "Manage nutrition for your child or family member",
       icon: Baby,
-      color: 'text-pink-600',
-      bgColor: 'bg-pink-50'
+      colorClass: "role-icon-pink",
+      bgClass: "role-bg-pink",
     },
     {
-      id: 'health-worker',
-      title: 'Health Worker',
-      description: 'Monitor patients and provide professional care',
+      id: "health-worker",
+      title: "Health Worker",
+      description: "Monitor patients and provide professional care",
       icon: Stethoscope,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
+      colorClass: "role-icon-blue",
+      bgClass: "role-bg-blue",
     },
     {
-      id: 'community',
-      title: 'Community Member',
-      description: 'Learn about nutrition and help your community',
+      id: "community",
+      title: "Community Member",
+      description: "Learn about nutrition and help your community",
       icon: UserCircle,
-      color: 'text-green-600',
-      bgColor: 'bg-green-50'
+      colorClass: "role-icon-green",
+      bgClass: "role-bg-green",
     },
     {
-      id: 'admin',
-      title: 'Administrator',
-      description: 'Manage programs and view organizational data',
+      id: "admin",
+      title: "Administrator",
+      description: "Manage programs and view organizational data",
       icon: Settings,
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50'
-    }
+      colorClass: "role-icon-purple",
+      bgClass: "role-bg-purple",
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4">
-      <div className="max-w-4xl w-full">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Select Your Role</h2>
-          <p className="text-gray-600">Choose how you'll be using NutriCare</p>
+    <div className="role-selection-container">
+      <div className="role-selection-wrapper">
+        <div className="role-selection-header">
+          <h2>Select Your Role</h2>
+          <p>Choose how you'll be using NutriCare</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="role-grid">
           {roles.map((role) => (
-            <Card 
+            <Card
               key={role.id}
-              className="cursor-pointer hover:shadow-lg transition-shadow"
+              className="role-card"
               onClick={() => onSelectRole(role.id)}
             >
               <CardHeader>
-                <div className={`inline-flex items-center justify-center w-12 h-12 ${role.bgColor} rounded-lg mb-3`}>
-                  <role.icon className={`w-6 h-6 ${role.color}`} />
+                <div className={`role-icon-wrapper ${role.bgClass}`}>
+                  <role.icon className={`role-icon ${role.colorClass}`} />
                 </div>
                 <CardTitle>{role.title}</CardTitle>
                 <CardDescription>{role.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Button variant="outline" className="w-full">
+                <Button className="role-button">
                   Continue as {role.title}
                 </Button>
               </CardContent>

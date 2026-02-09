@@ -1,0 +1,55 @@
+.mealplanner-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.header h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header p {
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.week-navigation {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.week-navigation .active-day {
+  background-color: #34d399;
+  color: white;
+}
+
+.week-navigation .inactive-day {
+  background-color: #f3f4f6;
+  color: #111;
+}
+
+.daily-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.meal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.meal-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.meal-logged {
+  background-color: #d1fae5;
+}

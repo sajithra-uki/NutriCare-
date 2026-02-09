@@ -1,4 +1,16 @@
-@import 'tailwindcss' source(none);
-@source '../**/*.{js,ts,jsx,tsx}';
+/* Custom global styles for NutriCare app */
+body {
+  background-color: #f9fafb; /* equivalent to bg-gray-50 */
+  color: #1f2937;           /* equivalent to text-gray-800 */
+  font-family: sans-serif;   /* equivalent to font-sans */
+  min-height: 100vh;         /* equivalent to min-h-screen */
+  margin: 0;
+}
 
-@import 'tw-animate-css';
+/* Optional animation import (if needed, plain CSS animations) */
+/* You can include any CSS animation library or define keyframes here */
+/* Example: fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

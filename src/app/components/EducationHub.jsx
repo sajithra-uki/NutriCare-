@@ -1,125 +1,42 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs";
-import { Badge } from "@/app/components/ui/badge";
-import { Button } from "@/app/components/ui/button";
+import React, { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import Badge from "./ui/Badge";
+import { Button } from "./ui/button";
 import { BookOpen, Video, AlertTriangle, Utensils, Baby, Heart } from "lucide-react";
 
-export function EducationHub() {
+export default function EducationHub() {
   const articles = [
-    {
-      id: 1,
-      title: 'Understanding Malnutrition in Children',
-      category: 'basics',
-      duration: '5 min read',
-      description: 'Learn about the types of malnutrition and early warning signs',
-      icon: Baby,
-      difficulty: 'Beginner'
-    },
-    {
-      id: 2,
-      title: 'Essential Nutrients for Growing Children',
-      category: 'nutrition',
-      duration: '7 min read',
-      description: 'Complete guide to proteins, vitamins, and minerals',
-      icon: Heart,
-      difficulty: 'Beginner'
-    },
-    {
-      id: 3,
-      title: 'Preparing Fortified Porridge',
-      category: 'cooking',
-      duration: '10 min read',
-      description: 'Step-by-step guide to making nutrient-rich porridge',
-      icon: Utensils,
-      difficulty: 'Intermediate'
-    },
+    { id: 1, title: 'Understanding Malnutrition in Children', category: 'basics', duration: '5 min read', description: 'Learn about the types of malnutrition and early warning signs', icon: Baby, difficulty: 'Beginner' },
+    { id: 2, title: 'Essential Nutrients for Growing Children', category: 'nutrition', duration: '7 min read', description: 'Complete guide to proteins, vitamins, and minerals', icon: Heart, difficulty: 'Beginner' },
+    { id: 3, title: 'Preparing Fortified Porridge', category: 'cooking', duration: '10 min read', description: 'Step-by-step guide to making nutrient-rich porridge', icon: Utensils, difficulty: 'Intermediate' },
   ];
 
   const videos = [
-    {
-      id: 1,
-      title: 'How to Measure MUAC Correctly',
-      duration: '3:45',
-      category: 'training',
-      thumbnail: 'video'
-    },
-    {
-      id: 2,
-      title: 'Cooking Nutritious Meals on a Budget',
-      duration: '8:20',
-      category: 'cooking',
-      thumbnail: 'video'
-    },
-    {
-      id: 3,
-      title: 'Recognizing Danger Signs in Children',
-      duration: '5:15',
-      category: 'health',
-      thumbnail: 'video'
-    },
+    { id: 1, title: 'How to Measure MUAC Correctly', duration: '3:45', category: 'training' },
+    { id: 2, title: 'Cooking Nutritious Meals on a Budget', duration: '8:20', category: 'cooking' },
+    { id: 3, title: 'Recognizing Danger Signs in Children', duration: '5:15', category: 'health' },
   ];
 
   const myths = [
-    {
-      myth: 'Giving water to babies under 6 months helps with hydration',
-      fact: 'Babies under 6 months should only receive breast milk. Water can interfere with nutrient absorption and may contain harmful bacteria.',
-      category: 'infant-feeding'
-    },
-    {
-      myth: 'Fat children are healthy children',
-      fact: 'Overweight children can also suffer from malnutrition. Hidden hunger (micronutrient deficiency) can affect any child regardless of weight.',
-      category: 'general'
-    },
-    {
-      myth: 'Eggs cause allergies and should be avoided',
-      fact: 'Eggs are an excellent source of protein and nutrients. Early introduction (after 6 months) may actually reduce allergy risk.',
-      category: 'food-beliefs'
-    },
-    {
-      myth: 'Traditional foods are not as nutritious as imported foods',
-      fact: 'Local traditional foods like lentils, millet, and indigenous vegetables are highly nutritious and often more affordable.',
-      category: 'food-beliefs'
-    },
+    { myth: 'Giving water to babies under 6 months helps with hydration', fact: 'Babies under 6 months should only receive breast milk. Water can interfere with nutrient absorption.', category: 'infant-feeding' },
+    { myth: 'Fat children are healthy children', fact: 'Overweight children can also suffer from malnutrition.', category: 'general' },
+    { myth: 'Eggs cause allergies and should be avoided', fact: 'Eggs are an excellent source of protein. Early introduction may reduce allergy risk.', category: 'food-beliefs' },
+    { myth: 'Traditional foods are not as nutritious as imported foods', fact: 'Local traditional foods like lentils, millet, and vegetables are highly nutritious.', category: 'food-beliefs' },
   ];
 
   const emergencyTips = [
-    {
-      situation: 'Flood/Heavy Rains',
-      tips: [
-        'Ensure clean drinking water - boil for at least 1 minute',
-        'Prioritize high-energy foods: fortified biscuits, groundnut paste',
-        'Continue breastfeeding for infants',
-        'Watch for diarrhea - give ORS solution',
-      ]
-    },
-    {
-      situation: 'Drought/Food Shortage',
-      tips: [
-        'Focus on nutrient-dense foods: eggs, beans, groundnuts',
-        'Use fortified foods when available',
-        'Prepare smaller, more frequent meals',
-        'Seek support from feeding programs',
-      ]
-    },
-    {
-      situation: 'Disease Outbreak',
-      tips: [
-        'Maintain good hygiene and handwashing',
-        'Increase vitamin-rich foods to boost immunity',
-        'Continue feeding during and after illness',
-        'Monitor weight closely during recovery',
-      ]
-    },
+    { situation: 'Flood/Heavy Rains', tips: ['Boil drinking water', 'Prioritize high-energy foods', 'Continue breastfeeding', 'Watch for diarrhea and give ORS'] },
+    { situation: 'Drought/Food Shortage', tips: ['Focus on nutrient-dense foods', 'Use fortified foods', 'Prepare smaller meals', 'Seek support from feeding programs'] },
+    { situation: 'Disease Outbreak', tips: ['Maintain hygiene', 'Increase vitamin-rich foods', 'Continue feeding', 'Monitor weight'] },
   ];
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Learning Hub</h2>
-        <p className="text-gray-600">Educational resources and practical guidance</p>
-      </div>
+    <div style={{ maxWidth: '960px', margin: '0 auto', padding: '20px' }}>
+      <h2 style={{ fontSize: '28px', fontWeight: 'bold' }}>Learning Hub</h2>
+      <p style={{ color: '#555' }}>Educational resources and practical guidance</p>
 
-      <Tabs defaultValue="articles" className="space-y-6">
+      <Tabs defaultValue="articles">
         <TabsList>
           <TabsTrigger value="articles">Articles</TabsTrigger>
           <TabsTrigger value="videos">Videos</TabsTrigger>
@@ -127,224 +44,86 @@ export function EducationHub() {
           <TabsTrigger value="emergency">Emergency Tips</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="articles" className="space-y-4">
-          <div className="grid md:grid-cols-2 gap-4">
+        {/* Articles */}
+        <TabsContent value="articles">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginTop: '15px' }}>
             {articles.map(article => (
-              <Card key={article.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+              <Card key={article.id}>
                 <CardHeader>
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="p-3 rounded-lg bg-blue-50">
-                      <article.icon className="w-6 h-6 text-blue-600" />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+                    <div style={{ padding: '8px', borderRadius: '8px', backgroundColor: '#dbeafe' }}>
+                      <article.icon />
                     </div>
-                    <Badge variant="outline">{article.difficulty}</Badge>
+                    <Badge>{article.difficulty}</Badge>
                   </div>
-                  <CardTitle className="text-lg">{article.title}</CardTitle>
+                  <CardTitle>{article.title}</CardTitle>
                   <CardDescription>{article.description}</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">{article.duration}</span>
-                    <Button variant="outline" size="sm">Read Article</Button>
-                  </div>
+                <CardContent style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+                  <span>{article.duration}</span>
+                  <Button size="sm">Read Article</Button>
                 </CardContent>
               </Card>
             ))}
           </div>
-
-          <Card className="bg-green-50 border-green-200">
-            <CardHeader>
-              <CardTitle>Key Takeaways</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 bg-green-600 rounded-full mt-2" />
-                  <span className="text-sm">Exclusive breastfeeding for first 6 months</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 bg-green-600 rounded-full mt-2" />
-                  <span className="text-sm">Introduce diverse foods after 6 months</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 bg-green-600 rounded-full mt-2" />
-                  <span className="text-sm">Monitor growth regularly using WHO standards</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 bg-green-600 rounded-full mt-2" />
-                  <span className="text-sm">Local foods can be highly nutritious and affordable</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
         </TabsContent>
 
-        <TabsContent value="videos" className="space-y-4">
-          <div className="grid md:grid-cols-3 gap-4">
+        {/* Videos */}
+        <TabsContent value="videos">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '15px', marginTop: '15px' }}>
             {videos.map(video => (
-              <Card key={video.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardContent className="pt-6">
-                  <div className="aspect-video bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg mb-4 flex items-center justify-center">
-                    <Video className="w-12 h-12 text-blue-600" />
+              <Card key={video.id}>
+                <CardContent>
+                  <div style={{ height: '120px', backgroundColor: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
+                    <Video />
                   </div>
-                  <h4 className="font-semibold mb-2">{video.title}</h4>
-                  <div className="flex items-center justify-between">
-                    <Badge variant="outline">{video.category}</Badge>
-                    <span className="text-sm text-gray-600">{video.duration}</span>
+                  <p style={{ fontWeight: 'bold' }}>{video.title}</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '5px' }}>
+                    <Badge>{video.category}</Badge>
+                    <span>{video.duration}</span>
                   </div>
-                  <Button variant="outline" className="w-full mt-4" size="sm">
-                    Watch Video
-                  </Button>
+                  <Button size="sm" style={{ width: '100%', marginTop: '10px' }}>Watch Video</Button>
                 </CardContent>
               </Card>
             ))}
           </div>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Cooking Tutorials</CardTitle>
-              <CardDescription>Learn to prepare nutritious, low-cost meals</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-green-100 rounded flex items-center justify-center">
-                      <Utensils className="w-5 h-5 text-green-600" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Fortified Porridge (3 ways)</p>
-                      <p className="text-sm text-gray-600">12:30 minutes</p>
-                    </div>
-                  </div>
-                  <Button size="sm" variant="outline">Watch</Button>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-orange-100 rounded flex items-center justify-center">
-                      <Utensils className="w-5 h-5 text-orange-600" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Bean & Vegetable Stew</p>
-                      <p className="text-sm text-gray-600">8:15 minutes</p>
-                    </div>
-                  </div>
-                  <Button size="sm" variant="outline">Watch</Button>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-100 rounded flex items-center justify-center">
-                      <Utensils className="w-5 h-5 text-blue-600" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Egg Preparations for Children</p>
-                      <p className="text-sm text-gray-600">6:45 minutes</p>
-                    </div>
-                  </div>
-                  <Button size="sm" variant="outline">Watch</Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </TabsContent>
 
-        <TabsContent value="myths" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Common Nutrition Myths</CardTitle>
-              <CardDescription>Separating fact from fiction</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {myths.map((item, index) => (
-                  <div key={index} className="p-4 border rounded-lg">
-                    <div className="flex items-start gap-3 mb-3">
-                      <AlertTriangle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold text-red-900">MYTH:</p>
-                        <p className="text-gray-700">{item.myth}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3 pl-8">
-                      <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-white text-xs">✓</span>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-green-900">FACT:</p>
-                        <p className="text-gray-700">{item.fact}</p>
-                      </div>
-                    </div>
-                    <div className="mt-2 pl-8">
-                      <Badge variant="outline" className="text-xs">{item.category}</Badge>
-                    </div>
+        {/* Myths */}
+        <TabsContent value="myths">
+          {myths.map((item, index) => (
+            <Card key={index} style={{ marginTop: '10px' }}>
+              <CardContent>
+                <div style={{ display: 'flex', gap: '10px', marginBottom: '5px' }}>
+                  <AlertTriangle style={{ color: 'red' }} />
+                  <div>
+                    <strong>MYTH:</strong> {item.myth}
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-blue-50 border-blue-200">
-            <CardContent className="pt-6">
-              <p className="text-sm text-blue-900">
-                <strong>Important:</strong> Always consult with qualified healthcare providers and 
-                nutritionists. Cultural practices should be respected while ensuring child safety and nutrition.
-              </p>
-            </CardContent>
-          </Card>
+                </div>
+                <div style={{ display: 'flex', gap: '10px', paddingLeft: '20px', marginBottom: '5px' }}>
+                  <span style={{ color: 'green' }}>✓</span>
+                  <div>
+                    <strong>FACT:</strong> {item.fact}
+                  </div>
+                </div>
+                <Badge>{item.category}</Badge>
+              </CardContent>
+            </Card>
+          ))}
         </TabsContent>
 
-        <TabsContent value="emergency" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Emergency Nutrition Guidelines</CardTitle>
-              <CardDescription>What to do during crisis situations</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {emergencyTips.map((emergency, index) => (
-                  <div key={index} className="p-4 border-l-4 border-orange-500 bg-orange-50 rounded">
-                    <h4 className="font-bold text-orange-900 mb-3 flex items-center gap-2">
-                      <AlertTriangle className="w-5 h-5" />
-                      {emergency.situation}
-                    </h4>
-                    <ul className="space-y-2">
-                      {emergency.tips.map((tip, tipIndex) => (
-                        <li key={tipIndex} className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 bg-orange-600 rounded-full mt-2 flex-shrink-0" />
-                          <span className="text-sm text-orange-900">{tip}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+        {/* Emergency */}
+        <TabsContent value="emergency">
+          {emergencyTips.map((tip, i) => (
+            <Card key={i} style={{ marginTop: '10px', borderLeft: '4px solid orange', backgroundColor: '#fff7ed', padding: '10px' }}>
+              <CardTitle style={{ color: 'orange' }}>{tip.situation}</CardTitle>
+              <ul>
+                {tip.tips.map((t, idx) => (
+                  <li key={idx} style={{ marginLeft: '10px', marginTop: '3px' }}>• {t}</li>
                 ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-red-50 border-red-200">
-            <CardHeader>
-              <CardTitle className="text-red-900">When to Seek Immediate Help</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-2">
-                  <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-red-900">Severe diarrhea or vomiting (signs of dehydration)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-red-900">Visible bilateral edema (swelling of feet/hands)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-red-900">MUAC less than 11.5cm (severe malnutrition)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-red-900">Child is lethargic or unable to eat</span>
-                </li>
               </ul>
-            </CardContent>
-          </Card>
+            </Card>
+          ))}
         </TabsContent>
       </Tabs>
     </div>

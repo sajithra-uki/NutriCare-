@@ -1,24 +1,21 @@
 import { useState } from "react";
-import WelcomeScreen from "./components/WelcomeScreen";
-import RoleSelection from "./components/RoleSelection";
-import MainDashboard from "./components/MainDashboard";
+import { WelcomeScreen } from "./components/WelcomeScreen";
+import { RoleSelection } from "./components/RoleSelection";
+import { MainDashboard } from "./components/MainDashboard";
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState("welcome");
   const [userRole, setUserRole] = useState("");
 
-  // Move from Welcome -> Role Selection
   const handleGetStarted = () => {
     setCurrentScreen("role-selection");
   };
 
-  // Select user role -> Dashboard
   const handleRoleSelection = (role) => {
     setUserRole(role);
     setCurrentScreen("dashboard");
   };
 
-  // Logout -> back to welcome screen
   const handleLogout = () => {
     setCurrentScreen("welcome");
     setUserRole("");
